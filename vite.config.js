@@ -12,10 +12,3 @@ export default defineConfig({
     ),
   },
 })
-```
-
----
-
-**Step 3 — Go to Vercel and delete ALL existing environment variables and re-add:**
-```
-VITE_API_URL = https://meet-connect-backend-nz6c.onrender.com/api
