@@ -11,9 +11,6 @@ import MyInterviews from './pages/MyInterviews';
 import PracticeResource from './pages/PracticeResource';
 import MyProfile from './pages/MyProfile';
 import About from './pages/About';
-import Readiness from './pages/Readiness';
-import Battle from './pages/Battle';
-import ResumeAnalyzer from './pages/ResumeAnalyzer';
 
 function App() {
   return (
@@ -25,20 +22,20 @@ function App() {
     >
       <ToastContainer position="top-right" autoClose={3000} />
       <Routes>
+        {/* Public Routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
 
+        {/* Protected Routes */}
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/my-interviews" element={<MyInterviews />} />
           <Route path="/practice" element={<PracticeResource />} />
           <Route path="/profile" element={<MyProfile />} />
-          <Route path="/readiness" element={<Readiness />} />
-          <Route path="/battle" element={<Battle />} />
-          <Route path="/resume-analyzer" element={<ResumeAnalyzer />} />
         </Route>
 
+        {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>

@@ -3,11 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchQuestions, fetchBlogs } from '../redux/slices/practiceSlice';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import {
-  FaExternalLinkAlt,
-  FaChevronLeft,
-  FaChevronRight,
-} from 'react-icons/fa';
+import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 const categories = ['Frontend', 'Backend', 'Full-Stack', 'Behavioral', 'DSA'];
 
@@ -19,15 +15,7 @@ const difficultyColors = {
 
 const PracticeResource = () => {
   const dispatch = useDispatch();
-  const {
-    questions = [],
-    blogs = [],
-    totalPages = 1,
-    currentPage = 1,
-    totalQuestions = 0,
-    loading,
-  } = useSelector((state) => state.practice);
-
+  const { questions, blogs, totalPages, currentPage, totalQuestions, loading } = useSelector((state) => state.practice);
   const [category, setCategory] = useState('Frontend');
 
   useEffect(() => {
@@ -39,7 +27,6 @@ const PracticeResource = () => {
   }, [category, dispatch]);
 
   const handlePageChange = (page) => {
-    if (page < 1 || page > totalPages) return;
     dispatch(fetchQuestions({ category, page }));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -52,9 +39,7 @@ const PracticeResource = () => {
       <div className="bg-gradient-to-r from-primary to-secondary text-white py-10 px-4">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-3xl font-bold">Practice Resources</h1>
-          <p className="text-light mt-1 text-sm">
-            Browse interview questions and blogs to sharpen your skills
-          </p>
+          <p className="text-light mt-1 text-sm">Browse interview questions and blogs to sharpen your skills</p>
         </div>
       </div>
 
@@ -63,7 +48,6 @@ const PracticeResource = () => {
 
           {/* LEFT — Questions */}
           <div className="flex-1">
-
             {/* Category Tabs */}
             <div className="flex flex-wrap gap-2 mb-6">
               {categories.map((cat) => (
@@ -82,12 +66,8 @@ const PracticeResource = () => {
             </div>
 
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-primary">
-                {category} Interview Questions
-              </h2>
-              <span className="text-xs text-gray-500">
-                {totalQuestions} questions total
-              </span>
+              <h2 className="text-lg font-bold text-primary">{category} Interview Questions</h2>
+              <span className="text-xs text-gray-500">{totalQuestions} questions total</span>
             </div>
 
             {/* Loading */}
@@ -110,15 +90,8 @@ const PracticeResource = () => {
                         {String((currentPage - 1) * 10 + idx + 1).padStart(2, '0')}
                       </span>
                       <div className="flex-1">
-                        <p className="text-sm font-medium text-gray-800 leading-relaxed">
-                          {q.question}
-                        </p>
-                        <span
-                          className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full font-medium ${
-                            difficultyColors[q.difficulty] ||
-                            'bg-gray-100 text-gray-600'
-                          }`}
-                        >
+                        <p className="text-sm font-medium text-gray-800 leading-relaxed">{q.question}</p>
+                        <span className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full font-medium ${difficultyColors[q.difficulty]}`}>
                           {q.difficulty}
                         </span>
                       </div>
@@ -138,23 +111,19 @@ const PracticeResource = () => {
                 >
                   <FaChevronLeft size={14} />
                 </button>
-
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                  (page) => (
-                    <button
-                      key={page}
-                      onClick={() => handlePageChange(page)}
-                      className={`w-9 h-9 rounded-lg text-sm font-semibold transition-all ${
-                        currentPage === page
-                          ? 'bg-primary text-white shadow'
-                          : 'border border-gray-300 text-gray-600 hover:bg-light hover:border-secondary'
-                      }`}
-                    >
-                      {page}
-                    </button>
-                  )
-                )}
-
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                  <button
+                    key={page}
+                    onClick={() => handlePageChange(page)}
+                    className={`w-9 h-9 rounded-lg text-sm font-semibold transition-all ${
+                      currentPage === page
+                        ? 'bg-primary text-white shadow'
+                        : 'border border-gray-300 text-gray-600 hover:bg-light hover:border-secondary'
+                    }`}
+                  >
+                    {page}
+                  </button>
+                ))}
                 <button
                   onClick={() => handlePageChange(currentPage + 1)}
                   disabled={currentPage === totalPages}
@@ -169,10 +138,7 @@ const PracticeResource = () => {
           {/* RIGHT — Blogs Sidebar */}
           <div className="w-full lg:w-80 flex-shrink-0">
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sticky top-20">
-              <h3 className="text-base font-bold text-primary mb-4">
-                📚 Recommended Blogs
-              </h3>
-
+              <h3 className="text-base font-bold text-primary mb-4">📚 Recommended Blogs</h3>
               <div className="space-y-4">
                 {blogs.map((blog) => (
                   <a
@@ -186,19 +152,11 @@ const PracticeResource = () => {
                       <p className="text-sm font-medium text-gray-700 group-hover:text-primary transition-colors leading-snug">
                         {blog.title}
                       </p>
-                      <FaExternalLinkAlt
-                        className="text-gray-400 group-hover:text-secondary flex-shrink-0 mt-0.5"
-                        size={12}
-                      />
+                      <FaExternalLinkAlt className="text-gray-400 group-hover:text-secondary flex-shrink-0 mt-0.5" size={12} />
                     </div>
-
-                    <span
-                      className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full font-medium ${
-                        blog.category === 'Technical'
-                          ? 'bg-blue-100 text-blue-700'
-                          : 'bg-pink-100 text-pink-700'
-                      }`}
-                    >
+                    <span className={`inline-block mt-2 text-xs px-2 py-0.5 rounded-full font-medium ${
+                      blog.category === 'Technical' ? 'bg-blue-100 text-blue-700' : 'bg-pink-100 text-pink-700'
+                    }`}>
                       {blog.category}
                     </span>
                   </a>
